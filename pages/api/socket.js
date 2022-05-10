@@ -27,7 +27,32 @@ const SocketHandler = (req, res) => {
 
                     socket.on('send-to-room', msg => {
                         console.log(msg);
-                        socket.in(msg.room).emit("update-players", msg.msg);
+                        socket.in(msg.room).emit("update-players", {name: msg.name, id: msg.id});
+                    });
+
+                    socket.on('send-players',msg => {
+                        console.log(msg);
+                        socket.in(msg.room).emit("get-players", msg.msg);
+                    });
+
+                    socket.on('send-cartela',msg => {
+                        console.log(msg);
+                        socket.to(msg.to).emit("get-cartela", msg.cartela);
+                    });
+
+                    socket.on('send-start',msg => {
+                        console.log(msg);
+                        socket.in(msg).emit("start-game");
+                    });
+
+                    socket.on('send-riffleds', (room, riffleds) => {
+                        console.log(room, riffleds);
+                        socket.in(room).emit("get-riffleds", riffleds);
+                    });
+
+                    socket.on('send-bingo', (room, name) => {
+                        console.log(room, name);
+                        socket.in(room).emit("get-bingo", name);
                     });
                 });
             }

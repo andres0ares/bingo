@@ -5,15 +5,17 @@ import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import JoinRoom from '../components/JoinRoom';
 import CreateRoom from '../components/CreateRoom';
+import Home from '../components/Home'
 
 let socket;
 
-export default function Home() {
+export default function Index() {
 
   const [input, setInput] = useState('hellor');
   const [players, setPlayers ] = useState(['fulano']);
   const [sala, setSala ] = useState(false);
   const [player, setPlayer ] = useState(false);
+  const [path, setPath ] = useState('home');
 
   useEffect(() => { socketInitializer(); }, []);
 
@@ -50,22 +52,21 @@ export default function Home() {
     socket.emit("send-to-room", {room: "room1", msg: "funcionou"});
   }
 
-  const joinRoom = (name, room) => {
-    socket.emit("join-room", room);
-    socket.emit("send-to-room", {room: room, msg: name})
+  
+
+  const handlePath = (path) => {
+    setPath(path);
+  };
+
+  switch(path){
+    case 'home':
+      return <Home path={handlePath}/>;
+    case 'create-room':
+      return <CreateRoom path={handlePath}/>
+    case 'join-room':
+      return <JoinRoom path={handlePath}/>
+    default:
+      return <Home path={handlePath}/>;
   }
 
-  return (
-    <div>
-      <p>mensagem: </p>
-      {players.map(function(name, i){
-        return <p key={i}>{name}</p>;
-      })}
-      <button onClick={() => setSala(true)}>Criar sala</button>
-      <button onClick={() => setPlayer(true)}>Entrar sala</button>
-      {sala && <CreateRoom />}
-      {player && <JoinRoom open={joinRoom}/> }
-    </div>
-    
-  )
 }
