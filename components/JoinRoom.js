@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styles from '../styles/JoinRoom.module.css';
 import io from 'socket.io-client';
+import { instructions } from '../utils/instructions'
 
 let socket;
 
@@ -86,24 +87,32 @@ export default function JoinRoom(props) {
 
   switch(path) {
     case 'join-room':
-      return <>
-        <label>Nome
-          <input value={data.name} onChange={handleChange} name="name" type="text"></input>
-        </label>
-        <label>Sala
-          <input value={data.room} onChange={handleChange} name="room" type="text"></input>
-        </label>
-        <button onClick={() => joinRoom(data.name, data.room)}>Entrar</button>
-      </>;
+      return <section className={styles.main}>
+        <h1>Entrar na sala</h1>
+        <label className={styles.label}>Seu nome: </label>
+        <input className={styles.input} value={data.name} onChange={handleChange} name="name" type="text"></input>
+        
+        <label className={styles.label}>Id da sala:  </label>
+        <input className={styles.input} value={data.room} onChange={handleChange} name="room" type="text"></input>
+       
+        <button className={styles.btn_enter} onClick={() => joinRoom(data.name, data.room)}>Entrar</button>
+      </section>;
     case 'wait-room':
-      return <>
-        <p>Gerando catela</p>
-        <p>esperando começar</p>
-        <p>{cartela}</p>
-        {cartela != null && cartela.map((el, i) => {
-          return <p key={i}>{el}</p>
-        })}
-      </>;
+      return <section className={styles.main_wait}>
+        <div className={styles.div_grid_3}>
+          <h1>Aguardando início do jogo</h1>
+          <p>Seus números sorteados: </p>
+          <p>{ cartela ? cartela.join(' ') : 'Gerando cartela'}</p>
+        </div>
+        <div className={styles.div_grid_3}>
+          <p>Intruções</p>
+          { instructions }
+        </div>
+        <div className={styles.div_grid_3}>
+          <p>Aguardando jogadores...</p>
+        </div>
+        
+      </section>;
     case 'play-room':
       return <>
         <p> { data.name }</p>

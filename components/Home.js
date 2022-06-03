@@ -9,9 +9,10 @@ export default function Home(props) {
 
 
     return (
-        <>
-            <button onClick={handleClick} name='create-room'>Criar Sala</button>
-            <button onClick={handleClick} name='join-room'>Entrar na sala</button>
-        </>
+        <div className={styles.main}>
+            <img className={styles.img} src='/Logo.svg'></img>
+            <button className={styles.btn_create} onClick={handleClick} name='create-room'>Criar Sala</button>
+            <button className={styles.btn_join} onClick={handleClick} name='join-room'>Entrar na sala</button>
+        </div>
     )
 }

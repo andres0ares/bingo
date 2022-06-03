@@ -2,6 +2,7 @@ import * as React from 'react';
 import styles from '../styles/CreateRoom.module.css';
 import io from 'socket.io-client';
 import { createCartela, bingo } from '../utils/bingo';
+import { instructions } from '../utils/instructions'
 
 let socket;
 let room1;
@@ -48,7 +49,7 @@ export default function CreateRoom() {
 
     const createRoom = () => {
         socket.emit('join-room', room);
-        room1 = room;
+        room1 = room
         amount = qtdBalls;
         setPath('wait-room'); 
     };
@@ -66,26 +67,39 @@ export default function CreateRoom() {
         socket.emit("send-riffleds", room, balls.riffleds);
     }
 
+
     switch(path){
         case 'create-room':
-            return <>
-                <label>NOME DA SALA
-                <input value={room} onChange={(e) => setRoom(e.target.value)} name="room" type="text"></input>
-                </label>
-                <label>QUANTIDADE DE BOLAS
-                <input value={qtdBalls} onChange={(e) => setQtdBalls(e.target.value)} name="qtdBalls" type="text"></input>
-                </label>
-                <button onClick={createRoom}>Entrar</button>
-            </>
+            return <div className={styles.main}>
+                    <h1 className={styles.title}>Criar Sala</h1>
+                    <label className={styles.label}>NOME DA SALA:</label>
+                    <input className={styles.input} value={room} minLength="5" maxLength="5" onChange={(e) => setRoom(e.target.value)} name="room" type="text"></input>
+                    <label className={styles.label}>QUANTIDADE DE BOLAS:</label>
+                    <input className={styles.input} value={qtdBalls} onChange={(e) => setQtdBalls(e.target.value)} name="qtdBalls" min={20} max={99} type="number"></input>
+                    <button className={styles.btn_enter} onClick={createRoom}>Entrar</button>
+                </div>
+            
         case 'wait-room':
-            return <>
-                <p>waiting room</p>
-                <p>sala: {room}, quantidade de bolas: {qtdBalls}</p>
-                {players.map((el, i) => {
-                    return <li key={i}>{el.name} - {el.id} - {el.cartela.join(',')}</li>
-                })}
-                <button onClick={startGame}>começar</button>
-            </>
+            return <section className={styles.main_wait}>
+                    <div className={styles.div_grid_3}>
+                    <h1 className={styles.title_wait}>ID DA SALA: </h1>
+                    <h1 className={styles.room}>{room}</h1>               
+                    <p>Quantidade de bolas: {qtdBalls}</p>
+                    <button className={styles.btn_start} onClick={startGame}>Iniciar</button>
+ 
+                </div>
+                <div className={styles.div_grid_3}>
+                    <p>Aguardando jogadores...</p>
+                    {players.map((el, i) => {
+                        return <p key={i}>{el.name} entrou.</p>
+                    })}
+                </div>
+                <div className={styles.div_grid_3}>
+                    <h3>Intruções</h3>
+                    { instructions }
+                </div>
+            </section>
+            
         case 'play-room':
             return <>
                 <p>gaming</p>
