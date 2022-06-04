@@ -3,6 +3,7 @@ import styles from '../styles/CreateRoom.module.css';
 import io from 'socket.io-client';
 import { createCartela, bingo } from '../utils/bingo';
 import { instructions } from '../utils/instructions'
+import BingoDisplay from '../components/BingoDisplay';
 
 let socket;
 let room1;
@@ -81,7 +82,7 @@ export default function CreateRoom() {
             
         case 'wait-room':
             return <section className={styles.main_wait}>
-                    <div className={styles.div_grid_3}>
+                <div className={styles.div_grid_3}>
                     <h1 className={styles.title_wait}>ID DA SALA: </h1>
                     <h1 className={styles.room}>{room}</h1>               
                     <p>Quantidade de bolas: {qtdBalls}</p>
@@ -101,18 +102,21 @@ export default function CreateRoom() {
             </section>
             
         case 'play-room':
-            return <>
-                <p>gaming</p>
-                {sort.map((el, i) => {
-                    return <li key={i}>{el}</li>
-                })}
-                <button onClick={riffle}>sortear</button>
-            </>
+            return <section className={styles.main_play}>
+                <div className={styles.div_grid_2}>
+                    <p>Sortenado bolas</p>
+                    <button onClick={riffle}>sortear</button>
+                    <BingoDisplay numbers={sort} type='main' />
+                </div>
+                <div className={styles.div_grid_2}>
+                    <BingoDisplay numbers={sort} balls={qtdBalls} type='all' />
+                </div>
+            </section>
         case 'bingo':
-            return <>
-                <p>Bingo</p>
-                <p> { bingoWinner } venceu!</p>
-            </>
+            return <section className={styles.bingo}>
+                <img src='/Logo2.svg'></img>
+                <p className={styles.bingo_winner}> { bingoWinner } venceu!</p>
+            </section>
         default:
             return <>
                 <p>default</p>

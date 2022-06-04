@@ -1,0 +1,112 @@
+.main {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+
+.first_ball {
+    width: 70px;
+    height: 70px;
+    color: #E5E5E5;
+    background-color: #262b29;
+    border-radius: 35px;
+    margin: 5px;
+    float: left;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.balls {
+    width: 50px;
+    height: 50px;
+    color: #E5E5E5;
+    background-color: #262b29;
+    border-radius: 25px;
+    margin: 14px 5px 0 5px;
+    float: left;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.number_click {
+    background-color: #FE7F2D;
+}
+
+
+/* ALL BALLS */
+
+.main_all {
+    padding: 10px;
+}
+
+.all_balls {
+    width: 50px;
+    height: 50px;
+    background-color: #E5E5E5;
+    border: 2px solid #262b29;
+    border-radius: 25px;
+    margin: 14px 5px 0 5px;
+    float: left;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.all_balls_sorted {
+    width: 50px;
+    height: 50px;
+    background-color: #262b29;
+    color: #E5E5E5;
+    border-radius: 25px;
+    margin: 14px 5px 0 5px;
+    float: left;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* MAIN DISPLAY */
+
+.first_main_ball {
+    width: 400px;
+    height: 400px;
+    color: #E5E5E5;
+    background-color: #262b29;
+    border-radius: 200px;
+    font-size: 200px;
+    margin: 5px;
+    float: left;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.four_main_ball {
+    width: 200px;
+    height: 200px;
+    color: #E5E5E5;
+    background-color: #262b29;
+    border-radius: 100px;
+    font-size: 100px;
+    margin: 5px;
+    float: left;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

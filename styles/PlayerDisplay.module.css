@@ -1,0 +1,22 @@
+.main {
+    max-width: 460px;
+    padding: 5px;
+}
+
+.number {
+    width: 50px;
+    height: 50px;
+    background-color: #E5E5E5;
+    border: 2px solid #262b29;
+    float: left;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.number_click {
+    background-color: #FE7F2D;
+}

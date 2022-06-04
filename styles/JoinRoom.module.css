@@ -81,3 +81,43 @@
         clear: both;
     }
 }
+
+/* Play Room */
+
+.main_play {
+    background-color: #E5E5E5;
+    min-height: 100vh;
+    padding: 4rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_bingo {
+    background-color: #FE7F2D;
+    margin-top: 40px;
+    width: 200px;
+    height: 80px;
+    border-radius: 15px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* BINGO */
+
+.bingo {
+    background-color: #FE7F2D;
+    min-height: 100vh;
+    padding: 4rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bingo_winner {
+    font-size: 50px;
+}

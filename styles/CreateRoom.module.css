@@ -116,3 +116,55 @@
     }
 }
   
+/* Play Room */
+
+.main_play {
+    background-color: #619B8A;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    display: flex;
+}
+
+.div_grid_2 {
+    padding: 0 2rem;
+    width: 50%;
+    max-width: 960px;
+    min-height: 80vh;
+    float: left;
+}
+
+@media screen and (max-width: 900px) {
+    .main_play {
+        min-height: 240vh;
+        justify-content: none;
+        align-items: none;
+        flex: none;
+        display: block;
+        
+    }
+    .div_grid_2 {
+        padding: 0 30px;
+        width: 100%;
+        display: inline-block;
+        clear: both;
+    }
+}
+
+/* BINGO */
+
+.bingo {
+    background-color: #FE7F2D;
+    min-height: 100vh;
+    padding: 4rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bingo_winner {
+    font-size: 50px;
+}

@@ -2,7 +2,8 @@ import * as React from 'react';
 import styles from '../styles/JoinRoom.module.css';
 import io from 'socket.io-client';
 import { instructions } from '../utils/instructions'
-
+import PlayerDisplay from '../components/PlayerDisplay';
+import BingoDisplay from '../components/BingoDisplay';
 let socket;
 
 export default function JoinRoom(props) {
@@ -114,19 +115,19 @@ export default function JoinRoom(props) {
         
       </section>;
     case 'play-room':
-      return <>
+      return <section className={styles.main_play}>
         <p> { data.name }</p>
         <p>JOGO INICIALIZADO</p>
-        <p>Números sorteados: { riffleds.toString()}</p>
-        <p>Seus números: { cartela.toString() }</p>
-        <button onClick={bingo}>BINGO!</button>
+        <BingoDisplay type='player' max={5} numbers={riffleds} />
+        <PlayerDisplay numbers={cartela} test={'hi there!'}/>
+        <button className={styles.btn_bingo} onClick={bingo}>BINGO!</button>
         
-      </>
+      </section>
     case 'bingo':
-        return <>
-          <p>Bingo</p>
-          <p> { bingoWinner } venceu!</p>
-      </>
+        return <section className={styles.bingo}>
+          <img src='/Logo2.svg'></img>
+          <p className={styles.bingo_winner}> { bingoWinner } venceu!</p>
+      </section>
     default:
       return <p> default </p>;
   };
