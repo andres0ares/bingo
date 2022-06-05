@@ -2,7 +2,7 @@ import * as React from 'react'
 import JoinRoom from '../components/JoinRoom';
 import CreateRoom from '../components/CreateRoom';
 import Home from '../components/Home'
-import content from '../utils/pt_content'
+import content from '../utils/en_content'
 
 export default function Index() {
   const [path, setPath ] = React.useState('home');

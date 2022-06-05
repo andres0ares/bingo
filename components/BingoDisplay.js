@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from '../styles/BingoDisplay.module.css'
+import content from '../utils/pt_content'
 
 export default function BingoDisplay(props) {
 
@@ -24,7 +25,7 @@ export default function BingoDisplay(props) {
             </section>
         case 'player':
             return <section className={styles.main}> 
-                <p >Números sorteados</p> 
+                <p >{content.bingoDisplay.title}</p> 
 
                 { props.numbers[0] && 
                 <div className={styles.first_ball}>

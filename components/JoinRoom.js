@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import { instructions } from '../utils/instructions'
 import PlayerDisplay from '../components/PlayerDisplay';
 import BingoDisplay from '../components/BingoDisplay';
+import content from '../utils/pt_content';
 let socket;
 
 export default function JoinRoom(props) {
@@ -89,46 +90,46 @@ export default function JoinRoom(props) {
   switch(path) {
     case 'join-room':
       return <section className={styles.main}>
-        <h1>Entrar na sala</h1>
-        <label className={styles.label}>Seu nome: </label>
+        <h1> {content.joinRoom.joinRoom.title}</h1>
+        <label className={styles.label}>{content.joinRoom.joinRoom.label1}</label>
         <input className={styles.input} value={data.name} onChange={handleChange} name="name" type="text"></input>
         
-        <label className={styles.label}>Id da sala:  </label>
+        <label className={styles.label}>{content.joinRoom.joinRoom.label2}</label>
         <input className={styles.input} value={data.room} onChange={handleChange} name="room" type="text"></input>
        
-        <button className={styles.btn_enter} onClick={() => joinRoom(data.name, data.room)}>Entrar</button>
+        <button className={styles.btn_enter} onClick={() => joinRoom(data.name, data.room)}>{content.joinRoom.joinRoom.btn}</button>
       </section>;
     case 'wait-room':
       return <section className={styles.main_wait}>
         <div className={styles.div_grid_3}>
-          <h1>Aguardando início do jogo</h1>
-          <p>Seus números sorteados: </p>
-          <p>{ cartela ? cartela.join(' ') : 'Gerando cartela'}</p>
+          <h1>{content.joinRoom.waitRoom.title}</h1>
+          <p>{content.joinRoom.waitRoom.subtitle}</p>
+          <p>{ cartela ? cartela.join(' ') : content.joinRoom.waitRoom.subtitle2}</p>
         </div>
         <div className={styles.div_grid_3}>
-          <p>Intruções</p>
+          <p>{content.joinRoom.waitRoom.title2}</p>
           { instructions }
         </div>
         <div className={styles.div_grid_3}>
-          <p>Aguardando jogadores...</p>
+          <p>{content.joinRoom.waitRoom.title3}</p>
         </div>
         
       </section>;
     case 'play-room':
       return <section className={styles.main_play}>
         <p> { data.name }</p>
-        <p>JOGO INICIALIZADO</p>
+        <p>{content.joinRoom.playRoom.title}</p>
         <BingoDisplay type='player' max={5} numbers={riffleds} />
         <PlayerDisplay numbers={cartela} test={'hi there!'}/>
-        <button className={styles.btn_bingo} onClick={bingo}>BINGO!</button>
+        <button className={styles.btn_bingo} onClick={bingo}>{content.joinRoom.playRoom.btn}</button>
         
       </section>
     case 'bingo':
         return <section className={styles.bingo}>
           <img src='/Logo2.svg'></img>
-          <p className={styles.bingo_winner}> { bingoWinner } venceu!</p>
+          <p className={styles.bingo_winner}> { bingoWinner } {content.joinRoom.bingo.title}</p>
       </section>
     default:
-      return <p> default </p>;
+      return <p> error 404 </p>;
   };
 };

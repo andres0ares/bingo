@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import { createCartela, bingo } from '../utils/bingo';
 import { instructions } from '../utils/instructions'
 import BingoDisplay from '../components/BingoDisplay';
+import content from '../utils/pt_content';
 
 let socket;
 let room1;
@@ -72,31 +73,31 @@ export default function CreateRoom() {
     switch(path){
         case 'create-room':
             return <div className={styles.main}>
-                    <h1 className={styles.title}>Criar Sala</h1>
-                    <label className={styles.label}>NOME DA SALA:</label>
+                    <h1 className={styles.title}> { content.createRoom.createRoom.title }</h1>
+                    <label className={styles.label}> { content.createRoom.createRoom.label1 } </label>
                     <input className={styles.input} value={room} minLength="5" maxLength="5" onChange={(e) => setRoom(e.target.value)} name="room" type="text"></input>
-                    <label className={styles.label}>QUANTIDADE DE BOLAS:</label>
+                    <label className={styles.label}> {content.createRoom.createRoom.label2} </label>
                     <input className={styles.input} value={qtdBalls} onChange={(e) => setQtdBalls(e.target.value)} name="qtdBalls" min={20} max={99} type="number"></input>
-                    <button className={styles.btn_enter} onClick={createRoom}>Entrar</button>
+                    <button className={styles.btn_enter} onClick={createRoom}> { content.createRoom.createRoom.btn } </button>
                 </div>
             
         case 'wait-room':
             return <section className={styles.main_wait}>
                 <div className={styles.div_grid_3}>
-                    <h1 className={styles.title_wait}>ID DA SALA: </h1>
+                    <h1 className={styles.title_wait}> {content.createRoom.waitRoom.title} </h1>
                     <h1 className={styles.room}>{room}</h1>               
-                    <p>Quantidade de bolas: {qtdBalls}</p>
-                    <button className={styles.btn_start} onClick={startGame}>Iniciar</button>
+                    <p>{content.createRoom.waitRoom.subtitle} {qtdBalls}</p>
+                    <button className={styles.btn_start} onClick={startGame}>{content.createRoom.waitRoom.btn}</button>
  
                 </div>
                 <div className={styles.div_grid_3}>
-                    <p>Aguardando jogadores...</p>
+                    <p>{content.createRoom.waitRoom.title2}</p>
                     {players.map((el, i) => {
-                        return <p key={i}>{el.name} entrou.</p>
+                        return <p key={i}>{el.name} {content.createRoom.waitRoom.subtitle2}</p>
                     })}
                 </div>
                 <div className={styles.div_grid_3}>
-                    <h3>Intruções</h3>
+                    <h3>{content.createRoom.waitRoom.title3}</h3>
                     { instructions }
                 </div>
             </section>
@@ -104,8 +105,8 @@ export default function CreateRoom() {
         case 'play-room':
             return <section className={styles.main_play}>
                 <div className={styles.div_grid_2}>
-                    <p>Sortenado bolas</p>
-                    <button onClick={riffle}>sortear</button>
+                    <p> {content.createRoom.playRoom.title} </p>
+                    <button onClick={riffle}> {content.createRoom.playRoom.btn} </button>
                     <BingoDisplay numbers={sort} type='main' />
                 </div>
                 <div className={styles.div_grid_2}>
@@ -115,7 +116,7 @@ export default function CreateRoom() {
         case 'bingo':
             return <section className={styles.bingo}>
                 <img src='/Logo2.svg'></img>
-                <p className={styles.bingo_winner}> { bingoWinner } venceu!</p>
+                <p className={styles.bingo_winner}> { bingoWinner } {content.createRoom.bingo.title}</p>
             </section>
         default:
             return <>
