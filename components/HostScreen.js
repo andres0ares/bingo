@@ -1,8 +1,12 @@
 import * as React from "react";
-import styles from "../styles/CreateRoom.module.css";
 import io from "socket.io-client";
 import { createCartela, bingo } from "../utils/bingo";
-import BingoDisplay from "../components/BingoDisplay";
+
+//styles
+import styles from "../styles/HostScreen.module.css";
+
+//componets
+import BingoDisplay from "./BingoDisplay";
 
 let socket;
 let room1;
@@ -12,14 +16,17 @@ let balls = {
   riffleds: [],
 };
 
-export default function CreateRoom(props) {
+export default function HostScreen(props) {
+  //HOOKERS
   const [room, setRoom] = React.useState("");
   const [qtdBalls, setQtdBalls] = React.useState(99);
   const [path, setPath] = React.useState("create-room");
   const [players, setPlayers] = React.useState([]);
   const [sort, setSort] = React.useState([]);
   const [bingoWinner, setBingoWinner] = React.useState("");
+  const [thereIsRoom, setThereIsRoom] = React.useState(false);
 
+  //set event listeners
   React.useEffect(() => {
     socketInitializer();
   }, []);
@@ -39,7 +46,7 @@ export default function CreateRoom(props) {
         );
         socket.emit("send-players", {
           room: room1,
-          msg: [...old.filter((el) => el.name), msg.name],
+          msg: [...old.map((el) => el.name), msg.name],
         });
         socket.emit("send-cartela", { to: msg.id, cartela: cartela });
         return [...old, { name: msg.name, id: msg.id, cartela: cartela }];
@@ -48,17 +55,24 @@ export default function CreateRoom(props) {
     });
 
     socket.on("get-bingo", (msg) => {
-      console.log("here2");
       setPath("bingo");
       setBingoWinner(msg);
     });
   };
 
-  const createRoom = () => {
-    socket.emit("join-room", room);
-    room1 = room;
-    amount = qtdBalls;
-    setPath("wait-room");
+  //METHODS
+
+  const createRoom = async () => {
+    const res = await fetch(`/api/socket?option=room&room=${room}`);
+    const posts = await res.json();
+    if (!posts.thereIs) {
+      socket.emit("join-room", room);
+      room1 = room;
+      amount = qtdBalls;
+      setPath("wait-room");
+    } else {
+      setThereIsRoom(true);
+    }
   };
 
   const startGame = () => {
@@ -69,9 +83,8 @@ export default function CreateRoom(props) {
 
   const riffle = () => {
     balls.riffleds.unshift(balls.riffledOrder.pop());
-    console.log(balls);
     setSort((old) => [balls.riffleds[0], ...old]);
-    socket.emit("send-riffleds", room, balls.riffleds);
+    socket.emit("send-raffleds", room, balls.riffleds);
   };
 
   switch (path) {
@@ -83,10 +96,11 @@ export default function CreateRoom(props) {
             {" "}
             {props.content.createRoom.label1}{" "}
           </label>
+          {thereIsRoom && <p>{props.content.createRoom.warning}</p>}
           <input
             className={styles.input}
             value={room}
-            minLength="5"
+            minLength="1"
             maxLength="5"
             onChange={(e) => setRoom(e.target.value)}
             name="room"
@@ -101,7 +115,7 @@ export default function CreateRoom(props) {
             value={qtdBalls}
             onChange={(e) => setQtdBalls(e.target.value)}
             name="qtdBalls"
-            min={20}
+            min={50}
             max={99}
             type="number"
           ></input>

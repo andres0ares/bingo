@@ -1,26 +1,47 @@
 import * as React from "react";
-import JoinRoom from "../components/JoinRoom";
-import CreateRoom from "../components/CreateRoom";
+import Head from "next/head";
+
+//components
+import PlayerScreen from "../components/PlayerScreen";
+import HostScreen from "../components/HostScreen";
 import Home from "../components/Home";
+
+//text content
 import content from "../utils/content";
 
 export default function Index() {
   const [path, setPath] = React.useState("home");
-
-  console.log(content.pt.home.btn1);
-
   const handlePath = (path) => {
     setPath(path);
   };
 
   switch (path) {
-    case "home":
-      return <Home content={content.pt.home} path={handlePath} />;
     case "create-room":
-      return <CreateRoom content={content.pt.createRoom} path={handlePath} />;
+      return (
+        <>
+          <Head>
+            <title>Bingo! - Criar Sala</title>
+          </Head>
+          <HostScreen content={content.pt.createRoom} path={handlePath} />
+        </>
+      );
     case "join-room":
-      return <JoinRoom content={content.pt.joinRoom} path={handlePath} />;
+      return (
+        <>
+          <Head>
+            <title>Bingo! - Entrar na Sala</title>
+          </Head>
+          <PlayerScreen content={content.pt.joinRoom} path={handlePath} />
+        </>
+      );
     default:
-      return <Home content={content.pt.home} path={handlePath} />;
+      return (
+        <>
+          <Head>
+            <title>Bingo! - Início</title>
+          </Head>
+          <Home content={content.pt.home} path={handlePath} />
+        </>
+      );
   }
 }

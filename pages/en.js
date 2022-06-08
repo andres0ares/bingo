@@ -1,7 +1,12 @@
 import * as React from "react";
-import JoinRoom from "../components/JoinRoom";
-import CreateRoom from "../components/CreateRoom";
+import Head from "next/head";
+
+//components
+import PlayerScreen from "../components/PlayerScreen";
+import HostScreen from "../components/HostScreen";
 import Home from "../components/Home";
+
+//text content
 import content from "../utils/content";
 
 export default function Index() {
@@ -11,13 +16,32 @@ export default function Index() {
   };
 
   switch (path) {
-    case "home":
-      return <Home content={content.en.home} path={handlePath} />;
     case "create-room":
-      return <CreateRoom content={content.en.createRoom} path={handlePath} />;
+      return (
+        <>
+          <Head>
+            <title>Bingo! - Create Room</title>
+          </Head>
+          <HostScreen content={content.en.createRoom} path={handlePath} />
+        </>
+      );
     case "join-room":
-      return <JoinRoom content={content.en.joinRoom} path={handlePath} />;
+      return (
+        <>
+          <Head>
+            <title>Bingo! - Join Room</title>
+          </Head>
+          <PlayerScreen content={content.en.joinRoom} path={handlePath} />
+        </>
+      );
     default:
-      return <Home content={content.en.home} path={handlePath} />;
+      return (
+        <>
+          <Head>
+            <title>Bingo! - Home</title>
+          </Head>
+          <Home content={content.en.home} path={handlePath} />
+        </>
+      );
   }
 }

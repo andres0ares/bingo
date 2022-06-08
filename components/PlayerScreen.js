@@ -1,11 +1,27 @@
 import * as React from "react";
-import styles from "../styles/JoinRoom.module.css";
 import io from "socket.io-client";
-import PlayerDisplay from "../components/PlayerDisplay";
-import BingoDisplay from "../components/BingoDisplay";
-let socket;
 
-export default function JoinRoom(props) {
+//styles
+import styles from "../styles/PlayerScreen.module.css";
+
+//components
+import PlayerDisplay from "./PlayerDisplay";
+import BingoDisplay from "./BingoDisplay";
+
+let socket;
+export default function PlayerScreen(props) {
+  //HOOKERS
+  const [players, setPlayers] = React.useState([]);
+  const [bingoWinner, setBingoWinner] = React.useState("");
+  const [path, setPath] = React.useState("join-room");
+  const [cartela, setCartela] = React.useState([]);
+  const [raffleds, setRaffleds] = React.useState([]);
+  const [data, setData] = React.useState({
+    name: "",
+    room: "",
+  });
+
+  //set event listeners
   React.useEffect(() => {
     socketInitializer();
   }, []);
@@ -19,44 +35,33 @@ export default function JoinRoom(props) {
     });
 
     socket.on("get-players", (msg) => {
-      console.log(msg);
+      //get players
+      setPlayers(msg);
     });
 
     socket.on("get-cartela", (msg) => {
+      //get player raffled numbers
       setCartela(msg);
     });
 
-    socket.on("get-riffleds", (msg) => {
-      setRiffleds(msg);
+    socket.on("get-raffleds", (msg) => {
+      //get raffled balls
+      setRaffleds(msg);
     });
 
     socket.on("start-game", () => {
-      console.log("here");
+      //start game
       setPath("play-room");
     });
 
     socket.on("get-bingo", (msg) => {
-      console.log("here2");
+      //bingo
       setPath("bingo");
       setBingoWinner(msg);
     });
   };
 
-  //const [setup, setSetup] = React.useState(true);
-  const [bingoWinner, setBingoWinner] = React.useState("");
-  const [path, setPath] = React.useState("join-room");
-  const [cartela, setCartela] = React.useState([]);
-  const [riffleds, setRiffleds] = React.useState([]);
-  const [data, setData] = React.useState({
-    name: "",
-    room: "",
-  });
-
-  const joinRoom = (name, room) => {
-    socket.emit("join-room", room);
-    socket.emit("send-to-room", { room: room, name: name, id: socket.id });
-    setPath("wait-room");
-  };
+  //METHODS
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,22 +71,25 @@ export default function JoinRoom(props) {
     }));
   };
 
+  const joinRoom = (name, room) => {
+    socket.emit("join-room", room);
+    socket.emit("send-to-room", { room: room, name: name, id: socket.id });
+    setPath("wait-room");
+  };
+
   const bingo = () => {
     let count = 0;
     cartela.map((el) => {
-      if (riffleds.find((ele) => ele === el) != undefined) count++;
+      if (raffleds.find((ele) => ele === el) != undefined) count++;
     });
 
     if (cartela.length == count) {
-      console.log("BINGO!");
       socket.emit("send-bingo", data.room, data.name);
       setPath("bingo");
       setBingoWinner(data.name);
     } else {
       console.log("NÃO FOI BINGO");
     }
-
-    console.log(data.room);
   };
 
   switch (path) {
@@ -135,6 +143,13 @@ export default function JoinRoom(props) {
           </div>
           <div className={styles.div_grid_3}>
             <p>{props.content.waitRoom.title3}</p>
+            {players.map((el, i) => {
+              return (
+                <p key={i}>
+                  {el} {props.content.waitRoom.subtitle3}
+                </p>
+              );
+            })}
           </div>
         </section>
       );
@@ -146,10 +161,10 @@ export default function JoinRoom(props) {
           <BingoDisplay
             type="player"
             max={5}
-            numbers={riffleds}
+            numbers={raffleds}
             title={props.content.playRoom.bingoDisplay.title}
           />
-          <PlayerDisplay numbers={cartela} />
+          <PlayerDisplay numbers={cartela.sort()} />
           <button className={styles.btn_bingo} onClick={bingo}>
             {props.content.playRoom.btn}
           </button>
