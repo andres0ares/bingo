@@ -13,6 +13,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
+![](https://github.com/andres0ares/bingo/blob/main/public/bingo_prev1.gif)
+![](https://github.com/andres0ares/bingo/blob/main/public/bingo_prev2.gif)
+
 ## FlowChart
 
 ```mermaid
