@@ -96,7 +96,7 @@ export default function PlayerScreen(props) {
     case "join-room":
       return (
         <section className={styles.main}>
-          <h1> {props.content.joinRoom.title}</h1>
+          <h1 className={styles.title}> {props.content.joinRoom.title}</h1>
           <label className={styles.label}>
             {props.content.joinRoom.label1}
           </label>

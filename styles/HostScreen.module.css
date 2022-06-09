@@ -22,6 +22,8 @@
 }
 
 .title {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 2.5rem;
     margin-top: -30px;
     margin-bottom: 40px;
 }
@@ -55,7 +57,8 @@
 /* Wait Room */
 
 .main_wait {
-    background-color: #FE7F2D;
+    background: rgb(200,79,0);
+    background: linear-gradient(129deg, rgba(200,79,0,1) 43%, rgba(254,127,45,1) 100%);
     min-height: 100vh;
     justify-content: center;
     align-items: center;
@@ -65,6 +68,7 @@
 }
 
 .title_wait {
+    font-family: 'Gloria Hallelujah', cursive;
     font-size: 3rem;
 }
 
@@ -155,7 +159,8 @@
 /* BINGO */
 
 .bingo {
-    background-color: #FE7F2D;
+    background: rgb(200,79,0);
+    background: linear-gradient(129deg, rgba(200,79,0,1) 43%, rgba(254,127,45,1) 100%);
     min-height: 100vh;
     padding: 4rem 0;
     flex: 1;
