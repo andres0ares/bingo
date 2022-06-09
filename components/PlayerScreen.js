@@ -101,6 +101,7 @@ export default function PlayerScreen(props) {
             {props.content.joinRoom.label1}
           </label>
           <input
+            autocomplete="off"
             className={styles.input}
             value={data.name}
             onChange={handleChange}
@@ -112,6 +113,7 @@ export default function PlayerScreen(props) {
             {props.content.joinRoom.label2}
           </label>
           <input
+            autocomplete="off"
             className={styles.input}
             value={data.room}
             onChange={handleChange}

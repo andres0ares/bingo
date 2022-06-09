@@ -98,6 +98,7 @@ export default function HostScreen(props) {
           </label>
           {thereIsRoom && <p>{props.content.createRoom.warning}</p>}
           <input
+            autocomplete="off"
             className={styles.input}
             value={room}
             minLength="1"
