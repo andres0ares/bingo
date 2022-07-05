@@ -1,22 +1,25 @@
 import * as React from "react";
 import styles from "../styles/Home.module.css";
+import { useRouter } from "next/router";
+
+import JoinForm from "./JoinForm";
 
 export default function Home(props) {
+  const router = useRouter();
+
   const handleClick = (e) => {
     props.path(e.target.name);
+  };
+
+  const handleJoinRoom = (room_, name_) => {
+    router.push(`${room_}?name=${name_}`);
   };
 
   return (
     <div className={styles.main}>
       <img className={styles.img} src="/Logo.svg"></img>
-      <button
-        className={styles.btn_join}
-        onClick={handleClick}
-        name="join-room"
-      >
-        {" "}
-        {props.content.btn1}
-      </button>
+      <JoinForm type="home" btnFunction={handleJoinRoom} />
+
       <button
         className={styles.btn_create}
         onClick={handleClick}

@@ -22,6 +22,7 @@ export default function HostScreen(props) {
   const [qtdBalls, setQtdBalls] = React.useState(99);
   const [path, setPath] = React.useState("create-room");
   const [players, setPlayers] = React.useState([]);
+  const [chat, setChat] = React.useState([]);
   const [sort, setSort] = React.useState([]);
   const [bingoWinner, setBingoWinner] = React.useState("");
   const [thereIsRoom, setThereIsRoom] = React.useState(false);
@@ -38,7 +39,7 @@ export default function HostScreen(props) {
       console.log("connected");
     });
 
-    socket.on("update-players", (msg) => {
+    socket.on("get-new-player", (msg) => {
       setPlayers((old) => {
         let cartela = createCartela(
           amount,
@@ -49,6 +50,12 @@ export default function HostScreen(props) {
           msg: [...old.map((el) => el.name), msg.name],
         });
         socket.emit("send-cartela", { to: msg.id, cartela: cartela });
+        console.log("here");
+        socket.emit("send-chat", {
+          room: room1,
+          name: "host",
+          msg: `${msg.name} entrou.`,
+        });
         return [...old, { name: msg.name, id: msg.id, cartela: cartela }];
       });
       socket.emit("send-cartela", { to: msg.id });

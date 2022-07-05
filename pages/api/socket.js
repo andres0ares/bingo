@@ -1,3 +1,4 @@
+import { stringifyQuery } from "next/dist/server/server-route-utils";
 import { Server } from "socket.io";
 
 const SocketHandler = (req, res) => {
@@ -21,6 +22,18 @@ const SocketHandler = (req, res) => {
             socket
               .in(msg.room)
               .emit("update-players", { name: msg.name, id: msg.id });
+          });
+
+          socket.on("send-to-host", (msg) => {
+            socket
+              .in(msg.room)
+              .emit("get-new-player", { name: msg.name, id: msg.id });
+          });
+
+          socket.on("send-chat", (msg) => {
+            socket
+              .in(msg.room)
+              .emit("get-chat", { name: msg.name, msg: msg.msg });
           });
 
           socket.on("send-players", (msg) => {
