@@ -1,4 +1,3 @@
-import { stringifyQuery } from "next/dist/server/server-route-utils";
 import { Server } from "socket.io";
 
 const SocketHandler = (req, res) => {
@@ -25,6 +24,7 @@ const SocketHandler = (req, res) => {
           });
 
           socket.on("send-to-host", (msg) => {
+            console.log(msg);
             socket
               .in(msg.room)
               .emit("get-new-player", { name: msg.name, id: msg.id });
@@ -69,6 +69,7 @@ const SocketHandler = (req, res) => {
         const activeRoomNames = activeRooms.map((el) => el[0]);
         const there_is =
           activeRoomNames.findIndex((el) => el == room) == -1 ? false : true;
+        console.log("here");
         console.log(there_is);
         res.status(200).json({ thereIs: there_is });
       }

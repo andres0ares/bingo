@@ -1,0 +1,115 @@
+.main {
+    width: 100%;
+    background-color: #E5E5E5;
+    position: absolute;
+    background-color: #e5e5e5;
+    background-image: url("/dimension.png");
+    min-height: 100vh;
+    max-height: 100vh;    
+}
+.test {
+    float: left;
+    clear: both;
+    margin-top: 80px;
+    width: 10px;
+    height: 10px;
+    background-color: black;
+}
+.display {
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 85vh;
+}
+.msg_cartela {
+    float: left;
+    clear: both;
+    min-width: 200px;
+    max-width: 300px;
+    background-color:aqua;
+    padding: 10px 10px 5px 5px;
+    border-radius: 0 0 15px 15px;
+    margin: 5px;
+    clip-path: polygon(0 0, 5% 6%, 100% 6%, 100% 100%, 0 100%);
+}
+
+.name {
+    font-size: 12px;
+    margin: 0;
+    margin-left: 10px;
+}
+
+.msg_cartela p {
+    overflow-wrap: break-word;
+    margin: 0;
+}
+
+.msg_sent {
+    float: right;
+    clear: both;
+    margin: 5px;
+    max-width: 95%;
+    background-color: grey;
+    padding: 10px 10px 35px 35px;
+    border-radius: 15px 15px 0 0;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 94% 90%, 0% 90%);
+}
+
+.msg_sent p {
+    margin: 0;
+    overflow-wrap: break-word;
+}
+
+.msg_received {
+    float: left;
+    clear: both;
+    min-width: 200px;
+    max-width: 300px;
+    background-color:aqua;
+    padding: 10px 10px 5px 5px;
+    border-radius: 0 0 15px 15px;
+    margin: 5px;
+    clip-path: polygon(0 0, 5% 6%, 100% 6%, 100% 100%, 0 100%);
+}
+
+.msg_received_p {
+    margin: 10px 0 5px 10px;  
+    overflow-wrap: break-word;  
+}
+
+.joined {
+    
+    float: center;
+    clear: both;
+    text-align: center;
+}
+.joined_box {
+    margin: auto;
+    max-width: 120px;
+    height: 25px;
+    border-radius: 5px;
+    background-color: darkgray;
+}
+
+.joined_box_p {
+    padding: 5px;
+    font-size: 12px;
+    margin: 4px 0 0 0;
+    overflow-wrap: break-word;
+}
+
+.input {
+    position: fixed;
+    float: left;
+    width: 100%;
+    bottom: 0;
+}
+
+.input_box {
+    height: 50px;
+    width: 80%;
+}
+
+.input_btn {
+    height: 50px;
+    width: 20%;
+}

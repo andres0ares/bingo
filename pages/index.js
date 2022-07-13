@@ -3,8 +3,9 @@ import Head from "next/head";
 
 //components
 import PlayerScreen from "../components/PlayerScreen";
-import HostScreen from "../components/HostScreen";
+//import HostScreen from "../components/HostScreen";
 import Home from "../components/Home";
+import CreateHost from "../components/CreateHost";
 
 //text content
 import content from "../utils/content";
@@ -12,19 +13,17 @@ import content from "../utils/content";
 export default function Index() {
   const [path, setPath] = React.useState("home");
   const handlePath = (path) => {
+    test();
     setPath(path);
+  };
+
+  const test = async () => {
+    await fetch("/api/socket?option=connection");
   };
 
   switch (path) {
     case "create-room":
-      return (
-        <>
-          <Head>
-            <title>Bingo! - Criar Sala</title>
-          </Head>
-          <HostScreen content={content.pt.createRoom} path={handlePath} />
-        </>
-      );
+      return <CreateHost />;
     case "join-room":
       return (
         <>
