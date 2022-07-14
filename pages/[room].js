@@ -14,7 +14,6 @@ import PlayerDisplay from "../components/PlayerDisplay";
 let socket;
 export default function Room() {
   const router = useRouter();
-  const exibLastChat = React.useRef(null);
   const { room, name } = router.query;
   const [name2, setName2] = React.useState(name);
   const [path, setPath] = React.useState(" ");
@@ -43,7 +42,6 @@ export default function Room() {
       });
 
       socket.on("get-chat", (msg) => {
-        console.log(exibLastChat.current);
         setChat((prev) => [...prev, msg]);
       });
 
@@ -83,10 +81,6 @@ export default function Room() {
   const handleChat = (name_, msg_) => {
     socket.emit("send-chat", { room: room, name: name_, msg: msg_ });
     setChat((prev) => [...prev, { name: "sent-200", msg: msg_ }]);
-    exibLastChat.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
   };
 
   const bingo = () => {
@@ -104,33 +98,42 @@ export default function Room() {
     }
   };
 
+  const displayChat = (option) => {
+    console.log(option);
+    return (
+      <ChatDisplay
+        name={name2}
+        content={chat}
+        btnFunction={handleChat}
+        cartela={cartela}
+        onGame={option == "on-game" ? true : false}
+      />
+    );
+  };
+
   switch (path) {
     case "wait":
-      return (
-        <ChatDisplay
-          name={name2}
-          content={chat}
-          btnFunction={handleChat}
-          cartela={cartela}
-          reflash={exibLastChat}
-        />
-      );
+      return displayChat();
+
     case "play-room":
       return (
-        <section className={styles.main_play}>
-          <p> {name2}</p>
-          <p> 5 ultimos sorteados </p>
-          <BingoDisplay
-            type="player"
-            max={5}
-            numbers={raffleds}
-            title={"sei la"}
-          />
-          <PlayerDisplay numbers={cartela.sort()} />
-          <button className={styles.btn_bingo} onClick={bingo}>
-            Bingo!
-          </button>
-        </section>
+        <>
+          {displayChat("on-game")}
+          <section className={styles.main_play}>
+            <p> {name2}</p>
+            <p> 5 ultimos sorteados </p>
+            <BingoDisplay
+              type="player"
+              max={5}
+              numbers={raffleds}
+              title={"sei la"}
+            />
+            <PlayerDisplay numbers={cartela.sort()} />
+            <button className={styles.btn_bingo} onClick={bingo}>
+              Bingo!
+            </button>
+          </section>
+        </>
       );
     default:
       return (

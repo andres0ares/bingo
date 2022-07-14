@@ -18,8 +18,6 @@ let balls = {
 export default function Host() {
   const router = useRouter();
   const { host, qtdBalls, gameOption } = router.query;
-  const exibLastChat = React.useRef(null);
-
   const [path, setPath] = React.useState("wait");
   const [players, setPlayers] = React.useState([]);
   const [chat, setChat] = React.useState([]);
@@ -29,7 +27,7 @@ export default function Host() {
   //set event listeners
   React.useEffect(() => {
     socketInitializer();
-  }, [host, qtdBalls, exibLastChat]);
+  }, [host, qtdBalls]);
 
   const socketInitializer = async () => {
     try {
@@ -54,7 +52,6 @@ export default function Host() {
             room: host,
             msg: [...old.map((el) => el.name), msg.name],
           });
-          console.log(msg);
           socket.emit("send-cartela", { to: msg.id, cartela: cartela });
           socket.emit("send-chat", {
             room: host,
@@ -89,10 +86,6 @@ export default function Host() {
   const handleChat = (name_, msg_) => {
     socket.emit("send-chat", { room: host, name: name_, msg: msg_ });
     setChat((prev) => [...prev, { name: "sent-200", msg: msg_ }]);
-    exibLastChat.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
   };
 
   switch (path) {
@@ -111,12 +104,7 @@ export default function Host() {
             );
           })}
           <button onClick={startGame}>Start game</button>
-          <ChatDisplay
-            name={"host"}
-            content={chat}
-            btnFunction={handleChat}
-            reflash={exibLastChat}
-          />
+          <ChatDisplay name={"host"} content={chat} btnFunction={handleChat} />
         </>
       );
     case "play-room":
