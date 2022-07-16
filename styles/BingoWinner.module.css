@@ -1,0 +1,18 @@
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fe7f2d;
+  background-image: url("/cartographer.png");
+}
+
+.title {
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+    font-size: 10vh;
+    user-select: none;
+}

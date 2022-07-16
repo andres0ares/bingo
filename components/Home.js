@@ -7,27 +7,21 @@ import JoinForm from "./JoinForm";
 export default function Home(props) {
   const router = useRouter();
 
-  const handleClick = (e) => {
-    props.path(e.target.name);
-  };
-
-  const handleJoinRoom = (room_, name_) => {
-    router.push(`${room_}?name=${name_}`);
+  const handleJoinRoom = (room_, name_, option) => {
+    switch (option) {
+      case "join":
+        router.push(`${room_}?name=${name_}`);
+        break;
+      case "create":
+        props.path("create-room");
+        break;
+    }
   };
 
   return (
     <div className={styles.main}>
       <img className={styles.img} src="/Logo.svg"></img>
       <JoinForm type="home" btnFunction={handleJoinRoom} />
-
-      <button
-        className={styles.btn_create}
-        onClick={handleClick}
-        name="create-room"
-      >
-        {" "}
-        {props.content.btn2}{" "}
-      </button>
     </div>
   );
 }

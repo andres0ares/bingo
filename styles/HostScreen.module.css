@@ -124,6 +124,7 @@
 
 .main_play {
     background-color: #619B8A;
+    background-image: url("/cartographer.png");
     min-height: 100vh;
     justify-content: center;
     align-items: center;

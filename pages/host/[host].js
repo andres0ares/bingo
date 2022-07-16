@@ -8,6 +8,7 @@ import styles from "../../styles/HostScreen.module.css";
 
 import BingoDisplay from "../../components/BingoDisplay";
 import ChatDisplay from "../../components/ChatDisplay";
+import BingoWinner from "../../components/BingoWinner";
 
 let socket;
 let balls = {
@@ -110,6 +111,12 @@ export default function Host() {
     case "play-room":
       return (
         <>
+          <ChatDisplay
+            name={"host"}
+            content={chat}
+            btnFunction={handleChat}
+            onGame={true}
+          />
           <section className={styles.main_play}>
             <div className={styles.div_grid_2}>
               <p> Jogo iniciado </p>
@@ -124,6 +131,18 @@ export default function Host() {
               />
             </div>
           </section>
+        </>
+      );
+    case "bingo":
+      return (
+        <>
+          <ChatDisplay
+            name={"host"}
+            content={chat}
+            btnFunction={handleChat}
+            onGame={true}
+          />
+          <BingoWinner winner={bingoWinner} />
         </>
       );
   }

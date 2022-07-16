@@ -24,15 +24,6 @@ export default function Index() {
   switch (path) {
     case "create-room":
       return <CreateHost />;
-    case "join-room":
-      return (
-        <>
-          <Head>
-            <title>Bingo! - Entrar na Sala</title>
-          </Head>
-          <PlayerScreen content={content.pt.joinRoom} path={handlePath} />
-        </>
-      );
     default:
       return (
         <>

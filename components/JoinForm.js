@@ -1,7 +1,7 @@
 import * as React from "react";
 
 //styles
-import styles from "../styles/PlayerScreen.module.css";
+import styles from "../styles/JoinForm.module.css";
 
 export default function JoinForm(props) {
   const [name2, setName2] = React.useState("");
@@ -23,7 +23,7 @@ export default function JoinForm(props) {
             type="text"
           ></input>
           <button
-            className={styles.btn_enter}
+            className={`${styles.btn_enter} ${styles.bgc_green}`}
             onClick={() => props.btnFunction(props.room, name2)}
           >
             Entrar
@@ -52,10 +52,17 @@ export default function JoinForm(props) {
             type="text"
           ></input>
           <button
-            className={styles.btn_enter}
-            onClick={() => props.btnFunction(room, name2)}
+            className={`${styles.btn_enter} ${styles.bgc_green}`}
+            onClick={() => props.btnFunction(room, name2, "join")}
           >
             Entrar
+          </button>
+          <span className={styles.division}> ............. </span>
+          <button
+            className={`${styles.btn_enter} ${styles.bgc_dark_blue}`}
+            onClick={() => props.btnFunction(room, name2, "create")}
+          >
+            Criar Sala
           </button>
         </>
       );
@@ -92,7 +99,7 @@ export default function JoinForm(props) {
             <option value="new">new</option>
           </select>
           <button
-            className={styles.btn_enter}
+            className={`${styles.btn_enter} ${styles.bgc_green}`}
             onClick={() => props.btnFunction(room, qtdBalls, gameOption)}
           >
             Criar

@@ -123,6 +123,7 @@
     border: none;
     border-radius: 0 3vh 3vh 0;
     bottom: 0;
+    cursor: pointer;
 }
 
 

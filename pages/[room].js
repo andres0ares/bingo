@@ -10,6 +10,7 @@ import ChatDisplay from "../components/ChatDisplay";
 import JoinForm from "../components/JoinForm";
 import BingoDisplay from "../components/BingoDisplay";
 import PlayerDisplay from "../components/PlayerDisplay";
+import BingoWinner from "../components/BingoWinner";
 
 let socket;
 export default function Room() {
@@ -47,7 +48,6 @@ export default function Room() {
 
       socket.on("get-cartela", (msg) => {
         //get player raffled numbers
-        console.log(msg);
         setCartela(msg);
       });
 
@@ -90,9 +90,9 @@ export default function Room() {
     });
 
     if (cartela.length == count) {
-      socket.emit("send-bingo", room, name2);
       setPath("bingo");
       setBingoWinner(name2);
+      socket.emit("send-bingo", room, name2);
     } else {
       console.log("NÃO FOI BINGO");
     }
@@ -133,6 +133,13 @@ export default function Room() {
               Bingo!
             </button>
           </section>
+        </>
+      );
+    case "bingo":
+      return (
+        <>
+          {displayChat("on-game")}
+          <BingoWinner winner={bingoWinner} />
         </>
       );
     default:
