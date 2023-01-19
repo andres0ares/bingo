@@ -53,7 +53,7 @@ export default function Host() {
             room: host,
             msg: [...old.map((el) => el.name), msg.name],
           });
-          socket.emit("send-cartela", { to: msg.id, cartela: cartela });
+          socket.emit("send-bingo-card", { to: msg.id, cartela: cartela });
           socket.emit("send-chat", {
             room: host,
             name: "newPlayer",

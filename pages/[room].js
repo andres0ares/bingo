@@ -46,7 +46,7 @@ export default function Room() {
         setChat((prev) => [...prev, msg]);
       });
 
-      socket.on("get-cartela", (msg) => {
+      socket.on("get-bingo-card", (msg) => {
         //get player raffled numbers
         setCartela(msg);
       });
