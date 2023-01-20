@@ -93,6 +93,9 @@ export default function PlayerScreen(props) {
   };
 
   switch (path) {
+
+
+    
     case "join-room":
       return (
         <section className={styles.main}>
@@ -129,6 +132,9 @@ export default function PlayerScreen(props) {
           </button>
         </section>
       );
+
+
+
     case "wait-room":
       return (
         <section className={styles.main_wait}>
@@ -155,11 +161,13 @@ export default function PlayerScreen(props) {
           </div>
         </section>
       );
+
+
+
     case "play-room":
       return (
         <section className={styles.main_play}>
           <p> {data.name}</p>
-          <p>{props.content.playRoom.title}</p>
           <BingoDisplay
             type="player"
             max={5}
@@ -172,6 +180,9 @@ export default function PlayerScreen(props) {
           </button>
         </section>
       );
+
+
+
     case "bingo":
       return (
         <section className={styles.bingo}>

@@ -6,6 +6,7 @@
     background-image: url("/dimension.png");
     min-height: 100vh;
     max-height: 100vh;    
+    z-index: 4;
 }
 .test {
     float: left;

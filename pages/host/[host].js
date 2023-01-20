@@ -10,6 +10,8 @@ import BingoDisplay from "../../components/BingoDisplay";
 import ChatDisplay from "../../components/ChatDisplay";
 import BingoWinner from "../../components/BingoWinner";
 
+import { BsPlayFill, BsFillPauseFill } from "react-icons/bs";
+
 let socket;
 let balls = {
   riffledOrder: [],
@@ -17,6 +19,8 @@ let balls = {
 };
 
 export default function Host() {
+
+
   const router = useRouter();
   const { host, qtdBalls, gameOption } = router.query;
   const [path, setPath] = React.useState("wait");
@@ -24,6 +28,8 @@ export default function Host() {
   const [chat, setChat] = React.useState([]);
   const [sort, setSort] = React.useState([]);
   const [bingoWinner, setBingoWinner] = React.useState("");
+
+  const [play, setPlay] = React.useState("Play");
 
   //set event listeners
   React.useEffect(() => {
@@ -72,13 +78,15 @@ export default function Host() {
     }
   };
 
+  //Functions
+
   const startGame = () => {
     setPath("play-room");
     balls.riffledOrder = bingo(Number(qtdBalls));
     socket.emit("send-start", host);
   };
 
-  const riffle = () => {
+  const raffle = () => {
     balls.riffleds.unshift(balls.riffledOrder.pop());
     setSort((old) => [balls.riffleds[0], ...old]);
     socket.emit("send-raffleds", host, balls.riffleds);
@@ -88,6 +96,65 @@ export default function Host() {
     socket.emit("send-chat", { room: host, name: name_, msg: msg_ });
     setChat((prev) => [...prev, { name: "sent-200", msg: msg_ }]);
   };
+
+  const [secondsCycle, setSecondsCycle] = React.useState(5);
+  const [seconds, setSeconds] = React.useState(5);
+  const [isActive, setIsActive] = React.useState(false);
+
+  function reset() {
+    setSeconds(0);
+    setIsActive(false);
+  }
+
+  React.useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds(seconds => seconds - 1);
+      }, 1000);
+    } else if (!isActive && seconds !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive, seconds]);
+
+  React.useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        raffle();
+        setSeconds(secondsCycle);
+      }, secondsCycle * 1000);
+    } else if (!isActive) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive, secondsCycle]);
+
+  const handlePlay = () => {
+    setIsActive(!isActive);
+    setSeconds(secondsCycle);
+    if(play == 'Play')
+      setPlay('Pause');
+    else
+      setPlay("Play");
+  }
+
+  const handleSeconds = (option) => {
+    switch(option){
+      case '+':
+        setSecondsCycle(secondsCycle => secondsCycle + 1);
+        break;
+      case '-':
+        if(seconds > 1)
+          setSecondsCycle(secondsCycle => secondsCycle - 1);
+        break;
+    };
+
+    
+    setSeconds(secondsCycle);
+  } 
+ 
 
   switch (path) {
     case "wait":
@@ -120,7 +187,16 @@ export default function Host() {
           <section className={styles.main_play}>
             <div className={styles.div_grid_2}>
               <p> Jogo iniciado </p>
-              <button onClick={riffle}> sortear </button>
+
+              <div className={styles.actions}>
+                <button className={styles.actions_plus} onClick={() => handleSeconds('-')}>-</button>
+                <p>{secondsCycle}s</p>
+                <button className={styles.actions_plus} onClick={() => handleSeconds('+')}>+</button>
+                <button className={styles.actions_play} onClick={handlePlay}> { play == 'Play' ? <BsPlayFill className={styles.icon_play} /> : <BsFillPauseFill className={styles.icon_play} />}</button>
+                <p>{seconds}</p>
+              </div>
+
+
               <BingoDisplay numbers={sort} type="main" />
             </div>
             <div className={styles.div_grid_2}>

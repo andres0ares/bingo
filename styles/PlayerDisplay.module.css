@@ -1,3 +1,23 @@
+.bingo_card {
+    max-width: 460px;
+    background-color: #262b29;
+    border-radius: 10px;
+}
+
+.title {
+    margin-left: 20px;
+    color: #E5E5E5;
+}
+
+.inside_card {
+    min-height: 100px;
+    margin: 10px 20px 20px 20px;
+    padding: 5px;
+    background-color: #E5E5E5;
+    border-radius: 10px;
+    display: inline-block;
+}
+
 .main {
     max-width: 460px;
     padding: 5px;
@@ -15,8 +35,39 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
-.number_click {
-    background-color: #FE7F2D;
+.number_click1 {
+    background-image: url(../public/mark1.png);
+    background-size: 100%;
+    opacity: 0.651;
+    /* position: absolute; */
+    z-index: 1;
+}
+
+.number_click2 {
+    background-image: url(../public/mark2.png);
+    background-size: 100%;
+    opacity: 0.651;
+    /* position: absolute; */
+    z-index: 1;
+}
+
+.number_click3 {
+    background-image: url(../public/mark3.png);
+    background-size: 100%;
+    opacity: 0.651;
+    /* position: absolute; */
+    z-index: 1;
+}
+
+.number_click4 {
+    background-image: url(../public/mark4.png);
+    background-size: 100%;
+    opacity: 0.651;
+    /* position: absolute; */
+    z-index: 1;
 }

@@ -29,7 +29,6 @@ export default function BingoDisplay(props) {
     case "player":
       return (
         <section className={styles.main}>
-          <p>{props.title} </p>
 
           {props.numbers[0] && (
             <div className={styles.first_ball}>

@@ -140,6 +140,40 @@
     float: left;
 }
 
+.actions {
+    float: left;
+    padding: 20px;
+    background-color: #262b29;
+    border-radius: 5px;
+}
+
+.actions p {
+    margin: 3px  10px 0 10px;
+    color: #E5E5E5;
+}
+
+.actions_plus {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+.actions_play {
+    cursor: pointer;
+    margin-left: 20px;
+    width: 50px;
+    height: 30px;
+}
+
+.actions p, .actions button {
+    float: left;
+}
+
+.icon_play {
+    font-size: 20px;
+}
+
+
 @media screen and (max-width: 900px) {
     .main_play {
         min-height: 240vh;

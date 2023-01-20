@@ -126,7 +126,6 @@ export default function Room() {
               type="player"
               max={5}
               numbers={raffleds}
-              title={"sei la"}
             />
             <PlayerDisplay numbers={cartela.sort()} />
             <button className={styles.btn_bingo} onClick={bingo}>
