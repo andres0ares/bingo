@@ -7,7 +7,6 @@ import styles from "../styles/PlayerScreen.module.css";
 
 //components
 import ChatDisplay from "../components/ChatDisplay";
-import JoinForm from "../components/JoinForm";
 import BingoDisplay from "../components/BingoDisplay";
 import PlayerDisplay from "../components/PlayerDisplay";
 import BingoWinner from "../components/BingoWinner";
@@ -99,7 +98,6 @@ export default function Room() {
   };
 
   const displayChat = (option) => {
-    console.log(option);
     return (
       <ChatDisplay
         name={name2}
@@ -110,6 +108,27 @@ export default function Room() {
       />
     );
   };
+
+  const displayJoinForm = () => {
+    return <>
+      <label className={styles.label}>Seu nome</label>
+          <input
+            autoComplete="off"
+            className={styles.input}
+            value={name2}
+            onChange={(e) => setName2(e.target.value)}
+            name="room"
+            type="text"
+          ></input>
+          <button
+            className={`${styles.btn_enter} ${styles.bgc_green}`}
+            onClick={() => joinRoom(props.room, name2)}
+          >
+            Entrar
+          </button>
+    </>
+    
+  }
 
   switch (path) {
     case "wait":
@@ -149,7 +168,7 @@ export default function Room() {
               Bem-vind@ {name} à sala {room}
             </p>
             {name == undefined && (
-              <JoinForm type="room" btnFunction={joinRoom} room={room} />
+              displayJoinForm()
             )}
           </section>
         </>
