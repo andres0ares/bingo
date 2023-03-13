@@ -1,6 +1,7 @@
 import * as React from "react";
-import styles from "../styles/PlayerDisplay.module.css";
-export default function PlayerDisplay(props) {
+import styles from "../styles/BingoCard.module.css";
+
+export default function BingoCard(props) {
 
   const empty = (amount) => {
     return (

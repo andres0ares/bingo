@@ -1,0 +1,127 @@
+.main {
+    background-color: #E5E5E5;
+    min-height: 100vh;
+    padding: 4rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    font-family: 'Gloria Hallelujah', cursive; 
+    font-size: 2.5rem;
+    margin-top: -30px;
+    margin-bottom: 40px;
+}
+
+.label {
+    margin-bottom: 10px;
+}
+
+.input {
+    margin-bottom: 10px;
+    background-color: #E5E5E5;
+    border-radius: 15px;
+    width: 300px;
+    height: 50px;
+    font-size: 20px;
+    border: 2px solid #262b29;
+}
+
+.btn_enter {
+    background-color: #619B8A;
+    color: #E5E5E5;
+    border: none;
+    border-radius: 15px;
+    width: 200px;
+    height: 40px;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.btn_enter:hover {
+    background-color: #FE7F2D;
+    cursor: pointer;
+}
+/* Wait Room  */ 
+
+.main_wait {
+    background: rgb(119,185,166);
+    background: linear-gradient(129deg, rgba(119,185,166,1) 43%, rgba(97,155,138,1) 75%);
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    display: flex;
+    
+}
+
+.div_grid_3 {
+    padding: 0 2rem;
+    width: 30%;
+    max-width: 660px;
+    min-height: 80vh;
+    float: left;
+}
+
+
+@media screen and (max-width: 900px) {
+    .main_wait {
+        min-height: 120vh;
+        justify-content: none;
+        align-items: none;
+        flex: none;
+        display: block;
+        
+    }
+    .div_grid_3 {
+        padding: 0 30px;
+        width: 100%;
+        min-height: 30vh;
+        display: inline-block;
+        clear: both;
+    }
+}
+
+/* Play Room */
+
+.main_play {
+    background-color: #E5E5E5;
+    min-height: 100vh;
+    padding: 4rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn_bingo {
+    background-color: #FE7F2D;
+    margin-top: 40px;
+    width: 200px;
+    height: 80px;
+    border-radius: 15px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* BINGO */
+
+.bingo {
+    background: rgb(200,79,0);
+    background: linear-gradient(129deg, rgba(200,79,0,1) 43%, rgba(254,127,45,1) 100%);
+    min-height: 100vh;
+    padding: 4rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.bingo_winner {
+    font-size: 50px;
+}

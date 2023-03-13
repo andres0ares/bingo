@@ -1,5 +1,6 @@
 import * as React from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 //components
 import CreateHost from "../components/CreateHost";
@@ -12,6 +13,8 @@ import content from "../utils/content";
 
 
 export default function Index() {
+
+  const router = useRouter();
 
   const [path, setPath] = React.useState("home");
   const [name2, setName2] = React.useState("");
@@ -27,10 +30,10 @@ export default function Index() {
     setPath(path);
   };
 
-  const handleJoinRoom = (room_, name_, option) => {
+  const handleJoinRoom = (option) => {
     switch (option) {
       case "join":
-        router.push(`${room_}?name=${name_}`);
+        router.push(`${room}?name=${name2}`);
         break;
       case "create":
         handlePath("create-room");
@@ -72,7 +75,7 @@ export default function Index() {
 
             <button
               className={`${styles.btn_enter} ${styles.bgc_green}`}
-              onClick={() => handleJoinRoom(room, name2, "join")}
+              onClick={() => handleJoinRoom("join")}
             >
               Entrar
             </button>
@@ -81,7 +84,7 @@ export default function Index() {
 
             <button
               className={`${styles.btn_enter} ${styles.bgc_dark_blue}`}
-              onClick={() => handleJoinRoom(room, name2, "create")}
+              onClick={() => handleJoinRoom("create")}
             >
               Criar Sala
             </button>

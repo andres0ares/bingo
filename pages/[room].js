@@ -3,12 +3,12 @@ import * as React from "react";
 import io from "socket.io-client";
 
 //styles
-import styles from "../styles/PlayerScreen.module.css";
+import styles from "../styles/Room.module.css";
 
 //components
 import ChatDisplay from "../components/ChatDisplay";
 import BingoDisplay from "../components/BingoDisplay";
-import PlayerDisplay from "../components/PlayerDisplay";
+import BingoCard from "../components/BingoCard";
 import BingoWinner from "../components/BingoWinner";
 
 let socket;
@@ -18,7 +18,7 @@ export default function Room() {
   const [name2, setName2] = React.useState(name);
   const [path, setPath] = React.useState(" ");
   const [chat, setChat] = React.useState([]);
-  const [cartela, setCartela] = React.useState([]);
+  const [cards, setCards] = React.useState([]);
   const [raffleds, setRaffleds] = React.useState([]);
   const [bingoWinner, setBingoWinner] = React.useState("");
 
@@ -46,8 +46,9 @@ export default function Room() {
       });
 
       socket.on("get-bingo-card", (msg) => {
+        console.log(msg)
         //get player raffled numbers
-        setCartela(msg);
+        setCards(msg);
       });
 
       socket.on("get-raffleds", (msg) => {
@@ -103,7 +104,7 @@ export default function Room() {
         name={name2}
         content={chat}
         btnFunction={handleChat}
-        cartela={cartela}
+        cartela={cards}
         onGame={option == "on-game" ? true : false}
       />
     );
@@ -130,6 +131,16 @@ export default function Room() {
     
   }
 
+  const displayCards = () => {
+    let cardsList = [];
+    cards.forEach((card, idx) => {
+      cardsList.push(<BingoCard key={idx} numbers={card.sort()} />)
+    });
+
+    return cardsList;
+
+  }
+
   switch (path) {
     case "wait":
       return displayChat();
@@ -146,7 +157,9 @@ export default function Room() {
               max={5}
               numbers={raffleds}
             />
-            <PlayerDisplay numbers={cartela.sort()} />
+
+            {displayCards()}
+            
             <button className={styles.btn_bingo} onClick={bingo}>
               Bingo!
             </button>

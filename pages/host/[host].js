@@ -1,11 +1,14 @@
 import * as React from "react";
 import { useRouter } from "next/router";
 import io from "socket.io-client";
+
+//utils
 import { createCartela, bingo } from "../../utils/bingo";
 
 //styles
-import styles from "../../styles/HostScreen.module.css";
+import styles from "../../styles/Host.module.css";
 
+//components
 import BingoDisplay from "../../components/BingoDisplay";
 import ChatDisplay from "../../components/ChatDisplay";
 import BingoWinner from "../../components/BingoWinner";
@@ -13,6 +16,7 @@ import BingoWinner from "../../components/BingoWinner";
 import { BsPlayFill, BsFillPauseFill } from "react-icons/bs";
 
 let socket;
+
 let balls = {
   riffledOrder: [],
   riffleds: [],
@@ -20,9 +24,8 @@ let balls = {
 
 export default function Host() {
 
-
   const router = useRouter();
-  const { host, qtdBalls, gameOption } = router.query;
+  const { host, qtdBalls, qtdRaffles, qtdCards, gameOption } = router.query;
   const [path, setPath] = React.useState("wait");
   const [players, setPlayers] = React.useState([]);
   const [chat, setChat] = React.useState([]);
@@ -34,46 +37,65 @@ export default function Host() {
   //set event listeners
   React.useEffect(() => {
     socketInitializer();
-  }, [host, qtdBalls]);
+  }, [host, qtdBalls, qtdRaffles, qtdCards]);
 
   const socketInitializer = async () => {
     try {
+
+      //create socket connection
       await fetch("/api/socket?option=connection");
       socket = io();
 
+       
       socket.on("connect", () => {
         console.log("connected");
       });
 
+      //wait for new chat messages
       socket.on("get-chat", (msg) => {
         setChat((prev) => [...prev, msg]);
       });
 
+      //when a new player connects, those steps are executed.
       socket.on("get-new-player", (msg) => {
         setPlayers((old) => {
+
+          //creates unique cards
           let cartela = createCartela(
             Number(qtdBalls),
             old.filter((el) => el.cartela)
           );
+
+          //send the names of all players
           socket.emit("send-players", {
             room: host,
             msg: [...old.map((el) => el.name), msg.name],
           });
-          socket.emit("send-bingo-card", { to: msg.id, cartela: cartela });
+
+          //send cards
+          socket.emit("send-bingo-card", { to: msg.id, cartela: [cartela, cartela] });
+
+          //send "player joined" message to room
           socket.emit("send-chat", {
             room: host,
             name: "newPlayer",
             msg: `${msg.name} entrou.`,
           });
+
+          console.log([...old, { name: msg.name, id: msg.id, cartela: cartela }]);
+          //update list of players and cards
           return [...old, { name: msg.name, id: msg.id, cartela: cartela }];
         });
       });
 
+      //wait for bingo winnner
       socket.on("get-bingo", (msg) => {
         setPath("bingo");
         setBingoWinner(msg);
       });
+
     } finally {
+      //create room
       socket.emit("join-room", host);
     }
   };
@@ -97,14 +119,13 @@ export default function Host() {
     setChat((prev) => [...prev, { name: "sent-200", msg: msg_ }]);
   };
 
+ 
+  // ============= [start] handle automatic countdown =================
+
   const [secondsCycle, setSecondsCycle] = React.useState(5);
   const [seconds, setSeconds] = React.useState(5);
   const [isActive, setIsActive] = React.useState(false);
 
-  function reset() {
-    setSeconds(0);
-    setIsActive(false);
-  }
 
   React.useEffect(() => {
     let interval = null;
@@ -150,10 +171,10 @@ export default function Host() {
           setSecondsCycle(secondsCycle => secondsCycle - 1);
         break;
     };
-
-    
     setSeconds(secondsCycle);
   } 
+
+  // ============= [end] handle automatic countdown =================
  
 
   switch (path) {
