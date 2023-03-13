@@ -90,13 +90,13 @@ export default function CreateHost(props) {
       <label className={styles.label}>Quantidade de números na cartela</label>
       <div>
         {/* 99 option is default  */}
-        <div onClick={handleSelect} name="raffles_amount" id="16-18" className={`${styles.qtd_balls_div} ${styles.qtd_balls_div_selected}`}>
+        <div onClick={handleSelect} name="raffles_amount" id="16" className={`${styles.qtd_balls_div} ${styles.qtd_balls_div_selected}`}>
           <p>16-18</p>
         </div>
-        <div onClick={handleSelect} name="raffles_amount" id="10-13" className={styles.qtd_balls_div}>
+        <div onClick={handleSelect} name="raffles_amount" id="10" className={styles.qtd_balls_div}>
           <p>10-13</p>
         </div>
-        <div onClick={handleSelect} name="raffles_amount" id="4-7" className={styles.qtd_balls_div}>
+        <div onClick={handleSelect} name="raffles_amount" id="4" className={styles.qtd_balls_div}>
           <p>4-7</p>
         </div>
       </div>

@@ -46,7 +46,6 @@ export default function Room() {
       });
 
       socket.on("get-bingo-card", (msg) => {
-        console.log(msg)
         //get player raffled numbers
         setCards(msg);
       });
@@ -83,19 +82,28 @@ export default function Room() {
     setChat((prev) => [...prev, { name: "sent-200", msg: msg_ }]);
   };
 
+  //verify if user won
   const bingo = () => {
-    let count = 0;
-    cartela.map((el) => {
-      if (raffleds.find((ele) => ele === el) != undefined) count++;
+
+    
+    cards.forEach((card) => {
+      let count = 0;
+      //if number is in the raffleds list, increment count
+      card.forEach(el => {
+        if (raffleds.find((ele) => ele === el) != undefined) count++;
+      });
+
+      //if all numbers were found
+      if (card.length == count) {
+        //send mensage to room anouncing winner
+        setPath("bingo");
+        setBingoWinner(name2);
+        socket.emit("send-bingo", room, name2);
+      } 
+
     });
 
-    if (cartela.length == count) {
-      setPath("bingo");
-      setBingoWinner(name2);
-      socket.emit("send-bingo", room, name2);
-    } else {
-      console.log("NÃO FOI BINGO");
-    }
+    
   };
 
   const displayChat = (option) => {
@@ -104,7 +112,7 @@ export default function Room() {
         name={name2}
         content={chat}
         btnFunction={handleChat}
-        cartela={cards}
+        cards={cards}
         onGame={option == "on-game" ? true : false}
       />
     );

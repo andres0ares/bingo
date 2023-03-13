@@ -60,10 +60,16 @@ export default function Host() {
       socket.on("get-new-player", (msg) => {
         setPlayers((old) => {
 
+          //get all cars
+          let allCards = []
+          old.forEach((el) => allCards.push(...el.cartela));
+
           //creates unique cards
-          let cartela = createCartela(
+          let cards = createCartela(
             Number(qtdBalls),
-            old.filter((el) => el.cartela)
+            allCards,
+            Number(qtdCards),
+            Number(qtdRaffles)
           );
 
           //send the names of all players
@@ -73,7 +79,7 @@ export default function Host() {
           });
 
           //send cards
-          socket.emit("send-bingo-card", { to: msg.id, cartela: [cartela, cartela] });
+          socket.emit("send-bingo-card", { to: msg.id, cartela: cards});
 
           //send "player joined" message to room
           socket.emit("send-chat", {
@@ -82,9 +88,8 @@ export default function Host() {
             msg: `${msg.name} entrou.`,
           });
 
-          console.log([...old, { name: msg.name, id: msg.id, cartela: cartela }]);
           //update list of players and cards
-          return [...old, { name: msg.name, id: msg.id, cartela: cartela }];
+          return [...old, { name: msg.name, id: msg.id, cartela: cards }];
         });
       });
 
@@ -193,7 +198,7 @@ export default function Host() {
             );
           })}
           <button onClick={startGame}>Start game</button>
-          <ChatDisplay name={"host"} content={chat} btnFunction={handleChat} />
+          <ChatDisplay name={"host"} content={chat} btnFunction={handleChat} onGame={true} />
         </>
       );
     case "play-room":

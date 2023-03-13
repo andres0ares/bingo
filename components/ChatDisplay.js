@@ -35,10 +35,19 @@ export default function ChatDisplay(props) {
           </div>
         );
       case "cartela":
+
+        let cards = [];
+        if( e_.msg){
+          e_.msg.forEach(e => {
+            cards.push(<p className={styles.msg_received_p}>{e.toString()}</p>)
+          })
+        }
+        
+
         return (
           <div key={idx_} className={styles.msg_received}>
             <p className={styles.msg_received_p}>seus numeros são:</p>
-            <p className={styles.msg_received_p}>{e_.msg.toString()}</p>
+            {cards}
             <p className={styles.msg_received_p}>boa sorte!</p>
           </div>
         );
@@ -69,8 +78,8 @@ export default function ChatDisplay(props) {
       return (
         <div className={styles.main}>
           <div className={styles.display} ref={exibLastChat}>
-            {props.cartela &&
-              display_msg({ name: "cartela", msg: props.cartela }, 0)}
+            {props.cards &&
+              display_msg({ name: "cartela", msg: props.cards }, 0)}
             {props.content.map((e, idx) => display_msg(e, idx + 1))}
           </div>
           <div className={styles.input}>
