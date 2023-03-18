@@ -9,7 +9,7 @@ export default function ChatNav(props) {
     <section className={styles.main}>
       {props.option == "open" && (
         <div className={styles.box} onClick={props.openChat}>
-          <div className={styles.pop}>{props.newMsg}</div>
+          { props.newMsg != 0 && (<div className={styles.pop}>{props.newMsg}</div>)}
           <MdChatBubbleOutline className={styles.icon} />
         </div>
       )}

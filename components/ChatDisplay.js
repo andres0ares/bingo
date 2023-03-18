@@ -67,7 +67,7 @@ export default function ChatDisplay(props) {
     }
   };
 
-  const test = (open_) => {
+  const display_chat = (open_) => {
     if (open_) {
       if (props.content.length != oldChat && open_) {
         setOldChat(props.content.length);
@@ -112,10 +112,10 @@ export default function ChatDisplay(props) {
             newMsg={props.content.length - oldChat}
             option={openChat ? "close" : "open"}
           />
-          {test(openChat)}
+          {display_chat(openChat)}
         </>
       )}
-      {!props.onGame && <>{test(true)}</>}
+      {!props.onGame && <>{display_chat(true)}</>}
     </>
   );
 }

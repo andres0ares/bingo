@@ -9,7 +9,7 @@ export default function CreateHost(props) {
   const [thereIsRoom, setThereIsRoom] = React.useState(false); //to display warning if room id is taken
   const [room, setRoom] = React.useState(""); //room id
   const [qtdBalls, setQtdBalls] = React.useState(99); // balls amount
-  const [qtdRaffles, setQtdRaffles] = React.useState("17-18") //raffles numbers amount
+  const [qtdRaffles, setQtdRaffles] = React.useState(17) //raffles numbers amount
   const [qtdCards, setQtdCards] = React.useState(1) //raffles numbers amount
 
 
