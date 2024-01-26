@@ -8,6 +8,8 @@ If you want the logic of the game bingo, go to utils → bingo.js.
 
 ## Getting Started
 
+Install node.js 16  version  v16.20.2 combatiable with our application
+        npm 8.19.4  version 
 First, run the development server:
 
 ```bash
