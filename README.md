@@ -19,6 +19,10 @@ to run in background
 nohup npm run dev &
 
 ```
+Docker Container application 
+
+docker build -t bingo .
+docker run -p 3000:3000 -d bingo
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
