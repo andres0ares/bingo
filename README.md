@@ -1,6 +1,6 @@
 ## Hi there!
 
-The objective of this project was to learn how to use web sockets and how to create a multiplayer game. It was created using Next.js, React and Sockets.io. You can check it out [here](http://bingo-oandre.herokuapp.com/en) or [here](http://bingo-oandre.herokuapp.com/) for the Portuguese version. Feel free to modify as you wish.
+The objective of this project was to learn how to use web sockets and how to create a multiplayer game. It was created using Next.js, React and Sockets.io. You can check it out  for the English version. Feel free to modify as you wish.
 
 If you want the logic of the game bingo, go to utils → bingo.js.
 
