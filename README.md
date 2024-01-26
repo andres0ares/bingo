@@ -22,6 +22,9 @@ nohup npm run dev &
 Docker Container application 
 
 docker build -t bingo .
+
+
+
 docker run -p 3000:3000 -d --name bingoapp bingo
 
 
