@@ -33,6 +33,17 @@ docker run -p 3000:3000 -d --name bingo your-image-name
 docker run -p 3000:3000 -d --name bingoapp bingo
 
 
+
+
+# Build and start the Docker container
+docker-compose up -d
+
+To stop the containers, you can use the following command:
+# Stop the Docker containers
+docker-compose down
+
+
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
