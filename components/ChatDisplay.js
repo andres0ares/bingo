@@ -37,9 +37,9 @@ export default function ChatDisplay(props) {
       case "cartela":
         return (
           <div key={idx_} className={styles.msg_received}>
-            <p className={styles.msg_received_p}>seus numeros são:</p>
+            <p className={styles.msg_received_p}>your numbers are:</p>
             <p className={styles.msg_received_p}>{e_.msg.toString()}</p>
-            <p className={styles.msg_received_p}>boa sorte!</p>
+            <p className={styles.msg_received_p}>Good luck!</p>
           </div>
         );
       case "sent-200":
@@ -81,7 +81,7 @@ export default function ChatDisplay(props) {
               value={msg}
               onChange={(e) => setMsg(e.target.value)}
               onKeyDown={handleEnter}
-              placeholder="Digite sua mensagem..."
+              placeholder="Enter your message..."
             ></input>
             <button className={styles.input_btn} onClick={sendMsg}>
               <div className={styles.icon_box}>

@@ -24,7 +24,7 @@ export default function CreateHost(props) {
   return (
     <section className={styles.main}>
       <Head>
-        <title>Bingo! - Criar Sala</title>
+        <title>Bingo! - Create Room</title>
       </Head>
       <JoinForm
         type="host"
